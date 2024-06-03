@@ -4,12 +4,12 @@ namespace B3Digitas.Todo.Data.Repository;
 
 public class TodoRepository : ITodoRepository
 {
-    public Task<Domain.Entities.Todo> CreateAsync()
+    public Task<Domain.Entities.Todo> CreateAsync(Domain.Entities.Todo todo)
     {
         throw new NotImplementedException();
     }
 
-    public Task DeleteAsync()
+    public Task DeleteAsync(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -19,12 +19,17 @@ public class TodoRepository : ITodoRepository
         throw new NotImplementedException();
     }
 
-    public Task<Domain.Entities.Todo> GetAsync()
+    public Task<Domain.Entities.Todo> GetAsync(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync()
+    public Task<Domain.Entities.Todo> GetByTitleAsync(string title)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateAsync(Domain.Entities.Todo todo)
     {
         throw new NotImplementedException();
     }

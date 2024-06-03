@@ -13,5 +13,5 @@ public class Tag
     public string Description { get; set; } = string.Empty;
 
     [Required, MaxLength(7)]
-    public string Color { get; set; } = "#00FF00";
+    public string Color { get; set; }
 }

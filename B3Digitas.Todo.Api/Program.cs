@@ -1,6 +1,7 @@
 using B3Digitas.Todo.Business.Interfaces;
 using B3Digitas.Todo.Business.Services;
 using B3Digitas.Todo.Data;
+using B3Digitas.Todo.Api.Extensions;
 using B3Digitas.Todo.Data.Repository;
 using B3Digitas.Todo.Data.Repository.Interfaces;
 using B3Digitas.Todo.Domain.Repositories;
@@ -32,6 +33,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
