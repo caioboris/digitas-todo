@@ -1,32 +1,146 @@
 ﻿using B3Digitas.Todo.Business.Interfaces;
 using B3Digitas.Todo.Domain.Entities;
+using B3Digitas.Todo.Domain.Repositories;
 
 namespace B3Digitas.Todo.Business.Services;
 
 public class TagService : ITagService
 {
-    public Task<Result> CreateAsync(Tag entity)
+    private readonly ITagRepository _tagRepository;
+
+    public TagService(ITagRepository tagRepository)
     {
-        throw new NotImplementedException();
+        _tagRepository = tagRepository;
     }
 
-    public Task<Result> DeleteAsync(Guid id)
+    public async Task<Result> CreateAsync(Tag entity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var tag = await _tagRepository.CreateAsync(entity);
+            return new Result
+            {
+                IsSucces = true,
+                ResultBody = tag
+            };
+        }
+        catch (Exception e)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                Exception = e,
+                ResultBody = e.Message
+            };
+        }
     }
 
-    public Task<Result> GetAllAsync()
+    public async Task<Result> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _tagRepository.DeleteAsync(id);
+            return new Result
+            {
+                IsSucces = true
+            };
+        }
+        catch (Exception ex)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                Exception = ex,
+                ResultBody = ex.Message
+            };
+        }
     }
 
-    public Task<Result> GetAsync(Guid id)
+    public async Task<Result> GetAllAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            List<Tag> tags = await _tagRepository.GetAllAsync();
+
+            return new Result
+            {
+                IsSucces = true,
+                ResultBody = tags
+            };
+        }
+        catch(Exception e)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                ResultBody = e.Message,
+                Exception = e 
+            };
+        }
     }
 
-    public Task<Result> UpdateAsync(Tag entity)
+    public async Task<Result> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var tag = await _tagRepository.GetAsync(id);
+            return new Result
+            {
+                IsSucces = true,
+                ResultBody = tag
+            };
+        }
+        catch (Exception e)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                ResultBody = e.Message,
+                Exception = e
+            };
+        }
+    }
+
+    public async Task<Result> GetByTitleAsync(string title)
+    {
+        try
+        {
+            var tag = await _tagRepository.GetByTitleAsync(title);
+            return new Result
+            {
+                IsSucces = true,
+                ResultBody = tag
+            };
+        }
+        catch (Exception e)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                ResultBody = e.Message,
+                Exception = e
+            };
+        }
+    }
+
+    public async Task<Result> UpdateAsync(Tag entity)
+    {
+        try
+        {
+            await _tagRepository.UpdateAsync(entity);
+            return new Result
+            {
+                IsSucces = true
+            };
+        }
+        catch (Exception e)
+        {
+            return new Result
+            {
+                IsSucces = false,
+                Exception = e,
+                ResultBody = e.Message
+            };
+        }
     }
 }

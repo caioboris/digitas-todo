@@ -24,6 +24,11 @@ public class TodoService : ITodoService
         throw new NotImplementedException();
     }
 
+    public Task<Result> GetByTitleAsync(string title)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Result> UpdateAsync(Domain.Entities.Todo entity)
     {
         throw new NotImplementedException();
