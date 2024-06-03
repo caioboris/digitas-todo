@@ -1,4 +1,9 @@
+using B3Digitas.Todo.Business.Interfaces;
+using B3Digitas.Todo.Business.Services;
 using B3Digitas.Todo.Data;
+using B3Digitas.Todo.Data.Repository;
+using B3Digitas.Todo.Data.Repository.Interfaces;
+using B3Digitas.Todo.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));

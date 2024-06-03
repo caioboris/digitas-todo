@@ -19,4 +19,9 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\B3Digitas.Todo.Domain\B3Digitas.Todo.Domain.csproj" />
+    <ProjectReference Include="..\B3Digitas.Todo.Domain\B3Digitas.Todo.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

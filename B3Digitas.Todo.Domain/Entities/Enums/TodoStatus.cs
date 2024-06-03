@@ -1,4 +1,4 @@
-﻿namespace B3Digitas.Todo.Data.Entities.Enums;
+﻿namespace B3Digitas.Todo.Domain.Entities.Enums;
 
 public enum TodoStatus
 {

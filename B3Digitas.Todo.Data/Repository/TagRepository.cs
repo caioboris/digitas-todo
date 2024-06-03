@@ -1,5 +1,5 @@
-﻿using B3Digitas.Todo.Data.Entities;
-using B3Digitas.Todo.Data.Repository.Interfaces;
+﻿using B3Digitas.Todo.Domain.Entities;
+using B3Digitas.Todo.Domain.Repositories;
 
 namespace B3Digitas.Todo.Data.Repository;
 

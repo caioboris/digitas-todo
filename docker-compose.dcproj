@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>08dbdeff-4999-4251-9ff9-5ef76de1c5e5</ProjectGuid>
+    <ProjectGuid>95916e6c-6007-4031-a078-e3ffa7bf0101</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>b3digitas.todo.api</DockerServiceName>

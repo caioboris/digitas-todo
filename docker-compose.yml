@@ -1,20 +1,17 @@
 version: '3.4'
 
 services:
-  b3digitas.todo.api:
-    image: ${DOCKER_REGISTRY-}b3digitastodoapi
-    build:
-      context: .
-      dockerfile: B3Digitas.Todo.Api/Dockerfile
-  postgresdb:
+  postgres:
     image: postgres:16.3-alpine3.20
     environment:
         POSTGRES_DB: digitas_todo
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
-    volumes:
-        - data:/var/lib/postgres/data
-    ports:
-        - 5432:5432 
-volumes:
-  data: 
+    restart: always
+  b3digitas.todo.api:
+    image: ${DOCKER_REGISTRY-}b3digitastodoapi
+    build:
+      context: .
+      dockerfile: B3Digitas.Todo.Api/Dockerfile
+    depends_on:
+        - postgres

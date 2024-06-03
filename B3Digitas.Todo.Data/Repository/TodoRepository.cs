@@ -4,7 +4,7 @@ namespace B3Digitas.Todo.Data.Repository;
 
 public class TodoRepository : ITodoRepository
 {
-    public Task<Entities.Todo> CreateAsync()
+    public Task<Domain.Entities.Todo> CreateAsync()
     {
         throw new NotImplementedException();
     }
@@ -14,12 +14,12 @@ public class TodoRepository : ITodoRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<Entities.Todo>> GetAllAsync()
+    public Task<List<Domain.Entities.Todo>> GetAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Entities.Todo> GetAsync()
+    public Task<Domain.Entities.Todo> GetAsync()
     {
         throw new NotImplementedException();
     }
