@@ -1,7 +1,9 @@
 ﻿using B3Digitas.Todo.Api.DTOs;
 using B3Digitas.Todo.Api.Mappers;
 using B3Digitas.Todo.Business.Interfaces;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 
 namespace B3Digitas.Todo.Api.Controllers;
 
@@ -21,12 +23,12 @@ public class TagController : ControllerBase
     {
         var result = await _tagService.GetAllAsync();
         
-        if (result.IsSucces)
+        if (result.IsSuccess)
         {
-            return Ok(result.ResultBody);
+            return Ok(result.ResponseBody);
         }
 
-        return BadRequest();
+        return BadRequest(result);
     }
 
     [HttpGet("{id}")]
@@ -34,17 +36,17 @@ public class TagController : ControllerBase
     {
         var result = await _tagService.GetAsync(id);
 
-        if (result.IsSucces)
+        if (result.IsSuccess)
         {
-            if(result.ResultBody == null)
+            if(result.ResponseBody == null)
             {
                 return NotFound();
             }
             
-            return Ok(result.ResultBody);
+            return Ok(result.ResponseBody.ToDto());
         }
 
-        return BadRequest();
+        return BadRequest(result);
     }
 
     [HttpGet("title/{title}")]
@@ -52,28 +54,56 @@ public class TagController : ControllerBase
     {
         var result = await _tagService.GetByTitleAsync(title);
 
-        if (result.IsSucces)
+        if (result.IsSuccess)
         {
-            if(result.ResultBody == null)
+            if(result.ResponseBody == null)
             {
                 return NotFound();
             }
 
-            return Ok(result.ResultBody);
+            return Ok(result.ResponseBody);
         }
 
-        return BadRequest();
+        return BadRequest(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(TagDTO tagDto)
     {
         var result = await _tagService.CreateAsync(tagDto.ToEntity());
-        if (result.IsSucces)
+        var responseBody = result.ResponseBody;
+
+        if (result.IsSuccess && responseBody != null)
         {
-            return Ok(result.ResultBody);
+            var location = Request.GetEncodedUrl() + $"/{responseBody.Id}";
+            return Created(location, responseBody);
         }
 
-        return BadRequest();
+        return BadRequest(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id,[FromBody]TagDTO tagDTO)
+    {
+        var result = await _tagService.UpdateAsync(id,tagDTO.ToEntity());
+
+        if (result.IsSuccess)
+        {
+            return Ok(result.ResponseBody);
+        }
+
+        return BadRequest(result);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var result = await _tagService.DeleteAsync(id);
+        if (result.IsSuccess)
+        {
+            return Ok(result.Message);
+        }
+
+        return BadRequest(result);
     }
 }

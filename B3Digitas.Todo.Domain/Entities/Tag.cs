@@ -13,5 +13,8 @@ public class Tag
     public string Description { get; set; } = string.Empty;
 
     [Required, MaxLength(7)]
-    public string Color { get; set; }
+    public string Color { get; set; } = string.Empty;
+
+    public List<Todo> Todos { get; set; } = [];
+
 }

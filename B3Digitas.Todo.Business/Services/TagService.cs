@@ -1,4 +1,5 @@
 ﻿using B3Digitas.Todo.Business.Interfaces;
+using B3Digitas.Todo.Domain;
 using B3Digitas.Todo.Domain.Entities;
 using B3Digitas.Todo.Domain.Repositories;
 
@@ -13,134 +14,48 @@ public class TagService : ITagService
         _tagRepository = tagRepository;
     }
 
-    public async Task<Result> CreateAsync(Tag entity)
+    public async Task<Result<Tag>> CreateAsync(Tag entity)
     {
-        try
+        if (await ExistsTag(entity))
         {
-            var tag = await _tagRepository.CreateAsync(entity);
-            return new Result
+            return new Result<Tag>
             {
-                IsSucces = true,
-                ResultBody = tag
+                IsSuccess = false,
+                Message = "Essa etiqueta já existe!"
             };
         }
-        catch (Exception e)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                Exception = e,
-                ResultBody = e.Message
-            };
-        }
+
+        return await _tagRepository.CreateAsync(entity);
+    }    
+
+    public async Task<Result<Tag>> DeleteAsync(Guid id)
+    {
+       return await _tagRepository.DeleteAsync(id);   
     }
 
-    public async Task<Result> DeleteAsync(Guid id)
+    public async Task<Result<IEnumerable<Tag>>> GetAllAsync()
     {
-        try
-        {
-            await _tagRepository.DeleteAsync(id);
-            return new Result
-            {
-                IsSucces = true
-            };
-        }
-        catch (Exception ex)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                Exception = ex,
-                ResultBody = ex.Message
-            };
-        }
+        return await _tagRepository.GetAllAsync();
     }
 
-    public async Task<Result> GetAllAsync()
+    public async Task<Result<Tag>> GetAsync(Guid id)
     {
-        try
-        {
-            List<Tag> tags = await _tagRepository.GetAllAsync();
-
-            return new Result
-            {
-                IsSucces = true,
-                ResultBody = tags
-            };
-        }
-        catch(Exception e)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                ResultBody = e.Message,
-                Exception = e 
-            };
-        }
+       return await _tagRepository.GetAsync(id);
     }
 
-    public async Task<Result> GetAsync(Guid id)
+    public async Task<Result<Tag>> GetByTitleAsync(string title)
     {
-        try
-        {
-            var tag = await _tagRepository.GetAsync(id);
-            return new Result
-            {
-                IsSucces = true,
-                ResultBody = tag
-            };
-        }
-        catch (Exception e)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                ResultBody = e.Message,
-                Exception = e
-            };
-        }
+        return await _tagRepository.GetByTitleAsync(title);
     }
 
-    public async Task<Result> GetByTitleAsync(string title)
+    public async Task<Result<Tag>> UpdateAsync(Guid id, Tag model)
     {
-        try
-        {
-            var tag = await _tagRepository.GetByTitleAsync(title);
-            return new Result
-            {
-                IsSucces = true,
-                ResultBody = tag
-            };
-        }
-        catch (Exception e)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                ResultBody = e.Message,
-                Exception = e
-            };
-        }
+        model.Id = id;
+        return await _tagRepository.UpdateAsync(model);
     }
-
-    public async Task<Result> UpdateAsync(Tag entity)
+    private async Task<bool> ExistsTag(Tag model)
     {
-        try
-        {
-            await _tagRepository.UpdateAsync(entity);
-            return new Result
-            {
-                IsSucces = true
-            };
-        }
-        catch (Exception e)
-        {
-            return new Result
-            {
-                IsSucces = false,
-                Exception = e,
-                ResultBody = e.Message
-            };
-        }
+        var result = await _tagRepository.GetByTitleAsync(model.Name);
+        return result.IsSuccess;
     }
 }

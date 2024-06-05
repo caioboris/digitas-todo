@@ -1,4 +1,5 @@
 ﻿using B3Digitas.Todo.Api.DTOs;
+using B3Digitas.Todo.Domain.Entities.Enums;
 
 namespace B3Digitas.Todo.Api.Mappers;
 
@@ -8,30 +9,31 @@ public static class TodoMapper
     {
         return new TodoDTO
         {
-            Id = todo.Id,
             Title = todo.Title,
             Description = todo.Description,
-            TagColor = todo.Tag.Color,
             TagName = todo.Tag.Name,
-            CreatedAt = todo.CreatedAt,
-            EndsAt = todo.EndsAt
+            EndsAt = todo.EndsAt,
+            Status = nameof(todo.Status),
+            IsLate = todo.IsLate,
         };
     }
 
     public static Domain.Entities.Todo ToEntity(this TodoDTO todoDto)
     {
+        if(!Enum.TryParse(todoDto.Status, out TodoStatus status))
+        {
+            status = TodoStatus.Pending;
+        }
+
         return new Domain.Entities.Todo
         {
-            Id = todoDto.Id,
             Title = todoDto.Title,
             Description = todoDto.Description,
-            CreatedAt = todoDto.CreatedAt,
             EndsAt = todoDto.EndsAt,
-            Status = todoDto.Status,
+            Status = status,
             Tag = new Domain.Entities.Tag
             {
                 Name = todoDto.TagName,
-                Color = todoDto.TagColor
             }
         };
     }

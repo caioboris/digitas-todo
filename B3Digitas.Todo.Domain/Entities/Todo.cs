@@ -1,5 +1,6 @@
 ﻿using B3Digitas.Todo.Domain.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace B3Digitas.Todo.Domain.Entities;
 
@@ -17,9 +18,12 @@ public class Todo
     public DateTime CreatedAt{ get; set; }
     
     public DateTime EndsAt{ get; set; }
+
+    public bool IsLate => DateTime.Now > EndsAt;
     
     public TodoStatus Status { get; set; }
-    
-    public Tag Tag { get; set; } = new Tag();  
+
+    [JsonIgnore]
+    public Tag Tag { get; set; } = new();  
     
 }

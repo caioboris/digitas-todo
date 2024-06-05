@@ -1,0 +1,8 @@
+{
+  "language": {
+    "feature": "en"
+  },
+  "unitTestProvider": {
+    "name":  "xunit"
+  }
+}

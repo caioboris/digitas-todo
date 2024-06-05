@@ -2,10 +2,10 @@
 
 public interface IBaseRepository<T>
 {
-    Task<List<T>> GetAllAsync();
-    Task<T> GetAsync(Guid id);
-    Task<T> GetByTitleAsync(string title);
-    Task<T> CreateAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(Guid id);
+    Task<Result<IEnumerable<T>>> GetAllAsync();
+    Task<Result<T>> GetAsync(Guid id);
+    Task<Result<T>> GetByTitleAsync(string title);
+    Task<Result<T>> CreateAsync(T model);
+    Task<Result<T>> UpdateAsync(T model);
+    Task<Result<T>> DeleteAsync(Guid id);
 }

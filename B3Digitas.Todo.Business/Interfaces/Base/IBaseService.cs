@@ -1,12 +1,14 @@
-﻿namespace B3Digitas.Todo.Business.Interfaces.Base;
+﻿using B3Digitas.Todo.Domain;
+
+namespace B3Digitas.Todo.Business.Interfaces.Base;
 
 public interface IBaseService<T>
 {
-    Task<Result> GetAllAsync();
-    Task<Result> GetAsync(Guid id);
-    Task<Result> GetByTitleAsync(string title);
-    Task<Result> UpdateAsync(T entity);
-    Task<Result> DeleteAsync(Guid id);
-    Task<Result> CreateAsync(T entity);
+    Task<Result<IEnumerable<T>>> GetAllAsync();
+    Task<Result<T>> GetAsync(Guid id);
+    Task<Result<T>> GetByTitleAsync(string title);
+    Task<Result<T>> UpdateAsync(Guid id, T entity);
+    Task<Result<T>> DeleteAsync(Guid id);
+    Task<Result<T>> CreateAsync(T entity);
 
 }

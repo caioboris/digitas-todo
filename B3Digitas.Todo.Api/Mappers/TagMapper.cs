@@ -9,7 +9,6 @@ public static class TagMapper
     {
         return new TagDTO
         {
-            Id = tag.Id,
             Color = tag.Color,
             Description = tag.Description,
             Name = tag.Name
@@ -20,7 +19,6 @@ public static class TagMapper
     {
         return new Tag
         {
-            Id = tagDto.Id,
             Name = tagDto.Name,
             Description = tagDto.Description,
             Color = tagDto.Color,

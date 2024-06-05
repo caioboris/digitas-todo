@@ -1,11 +1,7 @@
-using B3Digitas.Todo.Business.Interfaces;
-using B3Digitas.Todo.Business.Services;
-using B3Digitas.Todo.Data;
 using B3Digitas.Todo.Api.Extensions;
-using B3Digitas.Todo.Data.Repository;
-using B3Digitas.Todo.Data.Repository.Interfaces;
-using B3Digitas.Todo.Domain.Repositories;
+using B3Digitas.Todo.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ITodoRepository, TodoRepository>();
-builder.Services.AddScoped<ITagRepository, TagRepository>();
-
-builder.Services.AddScoped<ITodoService, TodoService>();
-builder.Services.AddScoped<ITagService, TagService>();
+builder.AddDependencyInjection();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));

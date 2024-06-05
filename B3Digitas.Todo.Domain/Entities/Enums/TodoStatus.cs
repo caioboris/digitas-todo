@@ -4,6 +4,6 @@ public enum TodoStatus
 {
     Pending,
     Done,
-    InProgress,
+    Finished,
     Archived
 }
