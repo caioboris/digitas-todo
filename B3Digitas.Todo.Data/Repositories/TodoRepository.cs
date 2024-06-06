@@ -47,7 +47,7 @@ public class TodoRepository : ITodoRepository
                 return new Result<Domain.Entities.Todo>
                 {
                     IsSuccess = false,
-                    Message = "Tarefa não encontrada."
+                    Message = "Tarefa nao encontrada."
                 };
             }
             
@@ -57,7 +57,7 @@ public class TodoRepository : ITodoRepository
             return new Result<Domain.Entities.Todo>
             {
                 IsSuccess = true,
-                Message = "Tarefa excluída com sucesso"
+                Message = "Tarefa excluida com sucesso"
             };
 
         }
@@ -107,7 +107,7 @@ public class TodoRepository : ITodoRepository
                 return new Result<Domain.Entities.Todo>
                 {
                     IsSuccess = false,
-                    Message = "Tarefa não encontrada"
+                    Message = "Tarefa nao encontrada"
                 };
             }
 
@@ -139,7 +139,7 @@ public class TodoRepository : ITodoRepository
                 return new Result<Domain.Entities.Todo>
                 {
                     IsSuccess = false,
-                    Message = "Tarefa não encontrada"
+                    Message = "Tarefa nao encontrada"
                 };
             }
 

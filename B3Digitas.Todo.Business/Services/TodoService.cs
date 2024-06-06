@@ -22,7 +22,7 @@ public class TodoService : ITodoService
             return new Result<Domain.Entities.Todo>
             {
                 IsSuccess = false,
-                Message = "Essa tarefa já existe!"
+                Message = "Essa tarefa ja existe!"
             };
         }
 
@@ -35,7 +35,7 @@ public class TodoService : ITodoService
                 return new Result<Domain.Entities.Todo>
                 {
                     IsSuccess = false,
-                    Message = "Etiqueta não encontrada"
+                    Message = "Etiqueta nao encontrada"
                 };
             }
             entity.Tag = tagResult.ResponseBody;
