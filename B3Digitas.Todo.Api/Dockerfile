@@ -12,6 +12,7 @@ WORKDIR /src
 COPY ["B3Digitas.Todo.Api/B3Digitas.Todo.Api.csproj", "B3Digitas.Todo.Api/"]
 COPY ["B3Digitas.Todo.Business/B3Digitas.Todo.Business.csproj", "B3Digitas.Todo.Business/"]
 COPY ["B3Digitas.Todo.Data/B3Digitas.Todo.Data.csproj", "B3Digitas.Todo.Data/"]
+COPY ["B3Digitas.Todo.Domain/B3Digitas.Todo.Domain.csproj", "B3Digitas.Todo.Domain/"]
 RUN dotnet restore "./B3Digitas.Todo.Api/B3Digitas.Todo.Api.csproj"
 COPY . .
 WORKDIR "/src/B3Digitas.Todo.Api"
