@@ -1,4 +1,4 @@
-﻿namespace B3Digitas.Todo.Domain.Repositories.Base;
+﻿namespace B3Digitas.Todo.Domain.Interfaces.Repositories.Base;
 
 public interface IBaseRepository<T>
 {

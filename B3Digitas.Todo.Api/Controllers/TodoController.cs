@@ -1,7 +1,7 @@
 ﻿using B3Digitas.Todo.Api.DTOs;
 using B3Digitas.Todo.Api.Mappers;
-using B3Digitas.Todo.Business.Interfaces;
-using B3Digitas.Todo.Business.Services;
+using B3Digitas.Todo.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +9,7 @@ namespace B3Digitas.Todo.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class TodoController : ControllerBase
 {
     private readonly ITodoService _todoService;
@@ -32,6 +33,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await _todoService.GetAsync(id);

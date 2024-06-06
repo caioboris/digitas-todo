@@ -1,6 +1,6 @@
 ﻿using B3Digitas.Todo.Domain;
 
-namespace B3Digitas.Todo.Business.Interfaces.Base;
+namespace B3Digitas.Todo.Domain.Interfaces.Services.Base;
 
 public interface IBaseService<T>
 {

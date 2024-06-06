@@ -1,5 +1,5 @@
-﻿using B3Digitas.Todo.Data.Repository.Interfaces;
-using B3Digitas.Todo.Domain;
+﻿using B3Digitas.Todo.Domain;
+using B3Digitas.Todo.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace B3Digitas.Todo.Data.Repository;

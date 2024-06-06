@@ -1,7 +1,6 @@
-﻿using B3Digitas.Todo.Business.Interfaces;
-using B3Digitas.Todo.Data.Repository.Interfaces;
-using B3Digitas.Todo.Domain;
-using B3Digitas.Todo.Domain.Repositories;
+﻿using B3Digitas.Todo.Domain;
+using B3Digitas.Todo.Domain.Interfaces.Repositories;
+using B3Digitas.Todo.Domain.Interfaces.Services;
 
 namespace B3Digitas.Todo.Business.Services;
 
