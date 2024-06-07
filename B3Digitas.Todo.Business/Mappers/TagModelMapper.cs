@@ -7,23 +7,33 @@ public static class TagModelMapper
 {
     public static Tag ToEntity(this TagModel tag)
     {
-        return new Tag
+        if(tag != null)
         {
-            Id = tag.Id,
-            Color = tag.Color,
-            Description = tag.Description,
-            Name = tag.Name
-        };
+            return new Tag
+            {
+                Id = tag.Id,
+                Color = tag.Color,
+                Description = tag.Description,
+                Name = tag.Name
+            };
+        }
+
+        return new Tag();
     }
 
     public static TagModel ToModel(this Tag tag)
     {
-        return new TagModel
+        if(tag != null)
         {
-            Id = tag.Id,
-            Name = tag.Name,
-            Description = tag.Description,
-            Color = tag.Color,
-        };
+            return new TagModel
+            {
+                Id = tag.Id,
+                Name = tag.Name,
+                Description = tag.Description,
+                Color = tag.Color,
+            };
+        }
+
+        return new TagModel();
     }
 }

@@ -30,7 +30,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex.Message);
         }
     }    
 
@@ -47,7 +47,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex.Message);
         } 
     }
 
@@ -61,7 +61,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<IEnumerable<TagModel>>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<IEnumerable<TagModel>>.Failure("Erro ao criar etiqueta.", ex.Message);
         }
     }
 
@@ -81,7 +81,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex.Message);
         }
     }
 
@@ -101,7 +101,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex.Message);
         }
     }
 
@@ -115,7 +115,7 @@ public class TagService : ITagService
         }
         catch (Exception ex)
         {
-            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex);
+            return Result<TagModel>.Failure("Erro ao criar etiqueta.", ex.Message);
         }
     }
 

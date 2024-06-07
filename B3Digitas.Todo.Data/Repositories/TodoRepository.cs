@@ -50,7 +50,8 @@ public class TodoRepository : ITodoRepository
     public async Task<Domain.Entities.Todo> GetByTitleAsync(string title)
     {
        
-        return await _context.Todos.FirstOrDefaultAsync(x => x.Title == title);
+        return await _context.Todos.Include(x => x.Tag)
+            .FirstOrDefaultAsync(y => y.Title == title);
     }
 
     public async Task<Domain.Entities.Todo> UpdateAsync(Domain.Entities.Todo todo)
