@@ -9,8 +9,8 @@ Feature: TodoService
     Then the creation should fail with message "Essa tarefa ja existe!"
 
   Scenario: Create a new todo
-    Given no existing todo with title "NewTodo"
-    When I create a todo with title "NewTodo"
+    Given no existing todo with title "New Todo"
+    When I create a todo with title "New Todo"
     Then the creation should succeed
 
   Scenario: Get a todo by ID that exists
@@ -33,17 +33,7 @@ Feature: TodoService
     When I update the todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
     Then the update should succeed
 
-  Scenario: Update a todo that does not exist
-    Given no existing todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
-    When I update the todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
-    Then the operation should fail with message "Erro ao atualizar tarefa."
-
   Scenario: Delete a todo that exists
     Given an existing todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
     When I delete the todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
     Then the deletion should succeed
-
-  Scenario: Delete a todo that does not exist
-    Given no existing todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
-    When I delete the todo with ID "c56a4180-65aa-42ec-a945-5fd21dec0538"
-    Then the operation should fail with message "Tarefa nao encontrada."

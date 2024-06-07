@@ -1,6 +1,0 @@
-@B3Digitas.Todo.Api_HostAddress = http://localhost:5030
-
-GET {{B3Digitas.Todo.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

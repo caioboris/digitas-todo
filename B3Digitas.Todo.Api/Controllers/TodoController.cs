@@ -45,7 +45,7 @@ public class TodoController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(result.ResponseBody.ToDTO());
+            return Ok(result.ResponseBody.ToDto());
         }
 
         return BadRequest(result);
