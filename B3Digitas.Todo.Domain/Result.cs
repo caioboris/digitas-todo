@@ -5,7 +5,7 @@ public class Result<T>
     public bool IsSuccess { get; set; }
     public string? Message { get; set; }
     public T? ResponseBody { get; set; }
-    public Exception? Exception { get; set; }
+    public string ExceptionMessage { get; set; }
 
     public static Result<T> Success(T data, string message = null)
     {
@@ -17,13 +17,13 @@ public class Result<T>
         };
     }
 
-    public static Result<T> Failure(string message, Exception ex = null)
+    public static Result<T> Failure(string message, string exceptionMessage = null)
     {
         return new Result<T>
         {
             IsSuccess = false,
             Message = message,
-            Exception = ex
+            ExceptionMessage = exceptionMessage
         };
     }
 
