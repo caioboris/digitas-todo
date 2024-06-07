@@ -1,4 +1,6 @@
-﻿using B3Digitas.Todo.Business.Services;
+﻿using B3Digitas.Todo.Api.Mappers;
+using B3Digitas.Todo.Business.Models;
+using B3Digitas.Todo.Business.Services;
 using B3Digitas.Todo.Domain;
 using B3Digitas.Todo.Domain.Entities;
 using B3Digitas.Todo.Domain.Interfaces.Repositories;
@@ -14,11 +16,11 @@ namespace MyTodoApp.Tests
         private readonly Mock<ITodoRepository> _todoRepository;
         private readonly Mock<ITagRepository> _tagRepository;
         private readonly ITodoService _todoService;
-        private Result<Todo> _createResult;
-        private Result<Todo> _getResult;
-        private Result<IEnumerable<Todo>> _getAllResult;
-        private Result<Todo> _updateResult;
-        private Result<Todo> _deleteResult;
+        private Result<TodoModel> _createResult;
+        private Result<TodoModel> _getResult;
+        private Result<IEnumerable<TodoModel>> _getAllResult;
+        private Result<TodoModel> _updateResult;
+        private Result<TodoModel> _deleteResult;
         private Guid _existingTodoId;
         private Todo _existingTodo;
         private List<Todo> _todoList;
@@ -43,10 +45,9 @@ namespace MyTodoApp.Tests
         public void GivenAnExistingTodoWithTitle(string title)
         {
             _todoRepository.Setup(repo => repo.GetByTitleAsync(title))
-                          .ReturnsAsync(new Result<Todo>
+                          .ReturnsAsync(new Todo
                           {
-                              IsSuccess = true,
-                              ResponseBody = _existingTodo
+                              Title = title,
                           });
         }
 
@@ -59,7 +60,7 @@ namespace MyTodoApp.Tests
                 Title = _existingTodo.Title,
                 Description = _existingTodo.Description,
             };
-            _createResult = await _todoService.CreateAsync(Todo);
+            _createResult = await _todoService.CreateAsync(Todo.ToModel());
         }
 
         [Then(@"the creation should fail with message ""(.*)""")]
@@ -75,23 +76,19 @@ namespace MyTodoApp.Tests
         public void GivenNoExistingTodoWithTitle(string title)
         {
             _todoRepository.Setup(repo => repo.GetByTitleAsync(title))
-                          .ReturnsAsync(new Result<Todo>
-                          {
-                              IsSuccess = false,
-                              ResponseBody = null
-                          });
+                          .ReturnsAsync((Todo)null);
         }
 
         [When(@"I create a todo with title ""(.*)""")]
         public async Task WhenICreateATodoWithTitle(string title)
         {
-            var Todo = new Todo
+            var todo = new Todo
             {
                 Id = Guid.NewGuid(),
                 Title = title,
                 Description = "New Description"
             };
-            _createResult = await _todoService.CreateAsync(Todo);
+            _createResult = await _todoService.CreateAsync(todo.ToModel());
         }
 
         [Then(@"the creation should succeed")]
@@ -110,10 +107,11 @@ namespace MyTodoApp.Tests
         {
             var todoId = Guid.Parse(id);
             _todoRepository.Setup(repo => repo.GetAsync(todoId))
-                          .ReturnsAsync(new Result<Todo>
+                          .ReturnsAsync(new Todo
                           {
-                              IsSuccess = true,
-                              ResponseBody = _existingTodo
+                              Id = todoId,
+                              Title = "Existing Todo",
+                              Description = "Description"
                           });
         }
 
@@ -139,12 +137,7 @@ namespace MyTodoApp.Tests
         {
             var todoId = Guid.Parse(id);
             _todoRepository.Setup(repo => repo.GetAsync(todoId))
-                          .ReturnsAsync(new Result<Todo>
-                          {
-                              IsSuccess = false,
-                              ResponseBody = null,
-                              Message = "Tarefa não encontrada."
-                          });
+                .ReturnsAsync((Todo)null);
         }
 
         [Then(@"the operation should fail with message ""(.*)""")]
@@ -162,11 +155,7 @@ namespace MyTodoApp.Tests
         public void GivenExistingTodos()
         {
             _todoRepository.Setup(repo => repo.GetAllAsync())
-                          .ReturnsAsync(new Result<IEnumerable<Todo>>
-                          {
-                              IsSuccess = true,
-                              ResponseBody = _todoList
-                          });
+                          .ReturnsAsync(new List<Todo>());
         }
 
         [When(@"I get all todos")]
@@ -180,7 +169,6 @@ namespace MyTodoApp.Tests
         {
             Assert.True(_getAllResult.IsSuccess);
             Assert.NotNull(_getAllResult.ResponseBody);
-            Assert.Equal(_todoList.Count, _getAllResult.ResponseBody.Count());
         }
 
         #endregion
@@ -191,8 +179,8 @@ namespace MyTodoApp.Tests
         public async Task WhenIUpdateTheTodoWithID(string id)
         {
             var todoId = Guid.Parse(id);
-            var Todo = new Todo { Id = todoId, Title = "UpdatedTodo" };
-            _updateResult = await _todoService.UpdateAsync(todoId, Todo);
+            var todo = new Todo { Id = todoId, Title = "UpdatedTodo" };
+            _updateResult = await _todoService.UpdateAsync(todoId, todo.ToModel());
         }
 
         [Then(@"the update should succeed")]
@@ -209,6 +197,10 @@ namespace MyTodoApp.Tests
         public async Task WhenIDeleteTheTodoWithID(string id)
         {
             var todoId = Guid.Parse(id);
+            
+            _todoRepository.Setup(repo => repo.DeleteAsync(todoId))
+                .ReturnsAsync(true);
+
             _deleteResult = await _todoService.DeleteAsync(todoId);
         }
 

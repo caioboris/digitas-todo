@@ -1,5 +1,4 @@
-﻿using B3Digitas.Todo.Domain;
-using B3Digitas.Todo.Domain.Entities;
+﻿using B3Digitas.Todo.Domain.Entities;
 using B3Digitas.Todo.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,172 +13,47 @@ public class TagRepository : ITagRepository
         _context = context;
     }
 
-    public async Task<Result<Tag>> CreateAsync(Tag Tag)
+    public async Task<Tag> CreateAsync(Tag tag)
     {
-        try
+        _context.Tags.Add(tag);
+        await _context.SaveChangesAsync();
+        return tag;
+    }
+    
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var tag = await _context.Tags.FindAsync(id);
+
+        if (tag == null)
         {
-            _context.Tags.Add(Tag);
-            await _context.SaveChangesAsync();
-            return new Result<Tag>
-            {
-                IsSuccess = true,
-                ResponseBody = Tag
-            };
+            return false;
         }
-        catch (Exception e)
-        {
-            return new Result<Tag>
-            {
-                IsSuccess = false,
-                Message = "Erro ao criar etiqueta.",
-                Exception = e
-            };
-        }
+
+        _context.Tags.Remove(tag);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task<Result<Tag>> DeleteAsync(Guid id)
+    public async Task<IEnumerable<Tag>> GetAllAsync()
     {
-        try
-        {
-            var Tag = await _context.Tags.FindAsync(id);
-
-            if (Tag == null)
-            {
-                return new Result<Tag>
-                {
-                    IsSuccess = false,
-                    Message = "Etiqueta nao encontrada."
-                };
-            }
-
-            _context.Tags.Remove(Tag);
-            await _context.SaveChangesAsync();
-
-            return new Result<Tag>
-            {
-                IsSuccess = true,
-                Message = "Etiqueta excluida com sucesso."
-            };
-
-        }
-        catch (Exception e)
-        {
-            return new Result<Tag>
-            {
-                IsSuccess = false,
-                Message = "Erro ao excluir etiqueta.",
-                Exception = e
-            };
-        }
+       return await _context.Tags.ToListAsync();
     }
 
-    public async Task<Result<IEnumerable<Tag>>> GetAllAsync()
+    public async Task<Tag> GetAsync(Guid id)
     {
-        try
-        {
-            var Tags = await _context.Tags.ToListAsync();
-            return new Result<IEnumerable<Tag>>
-            {
-                IsSuccess = true,
-                ResponseBody = Tags,
-            };
-        }
-        catch (Exception ex)
-        {
-            return new Result<IEnumerable<Tag>>
-            {
-                IsSuccess = false,
-                Message = "Erro ao obter lista de tarefas.",
-                Exception = ex
-            };
-        }
+        return await _context.Tags.FindAsync(id);
     }
 
-    public async Task<Result<Tag>> GetAsync(Guid id)
+    public async Task<Tag> GetByTitleAsync(string title)
     {
-        try
-        {
-            var Tag = await _context.Tags.FindAsync(id);
-
-            if (Tag is null)
-            {
-                return new Result<Tag>
-                {
-                    IsSuccess = false,
-                    Message = "Etiqueta nao encontrada"
-                };
-            }
-
-            return new Result<Tag>
-            {
-                IsSuccess = true,
-                ResponseBody = Tag
-            };
-        }
-        catch (Exception ex)
-        {
-            return new Result<Tag>
-            {
-                IsSuccess = false,
-                Message = "Erro ao obter etiqueta",
-                Exception = ex
-            };
-        }
+        return  await _context.Tags.FirstOrDefaultAsync(x => x.Name == title);
     }
 
-    public async Task<Result<Tag>> GetByTitleAsync(string title)
+    public async Task<Tag> UpdateAsync(Tag tag)
     {
-        try
-        {
-            var Tag = await _context.Tags.FirstOrDefaultAsync(x => x.Name == title);
-
-            if (Tag is null)
-            {
-                return new Result<Tag>
-                {
-                    IsSuccess = false,
-                    Message = "Etiqueta nao encontrada"
-                };
-            }
-
-            return new Result<Tag>
-            {
-                IsSuccess = true,
-                ResponseBody = Tag
-            };
-        }
-        catch (Exception e)
-        {
-            return new Result<Tag>
-            {
-                IsSuccess = false,
-                Message = "Erro ao obter etiqueta.",
-                Exception = e
-            };
-        }
-    }
-
-    public async Task<Result<Tag>> UpdateAsync(Tag Tag)
-    {
-        try
-        {
-            _context.Tags.Update(Tag);
-            await _context.SaveChangesAsync();
-
-            return new Result<Tag>
-            {
-                IsSuccess = true,
-                Message = "Etiqueta alterada com sucesso"
-            };
-        }
-        catch (Exception e)
-        {
-            return new Result<Tag>
-            {
-                IsSuccess = false,
-                Message = "Erro ao atualizar etiqueta.",
-                Exception = e
-            };
-        }
+        _context.Tags.Update(tag);
+        await _context.SaveChangesAsync();
+        return tag;
     }
 }

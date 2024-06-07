@@ -4,7 +4,6 @@ using B3Digitas.Todo.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
 
 namespace B3Digitas.Todo.Api.Controllers;
 
@@ -73,7 +72,7 @@ public class TagController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(TagDTO tagDto)
     {
-        var result = await _tagService.CreateAsync(tagDto.ToEntity());
+        var result = await _tagService.CreateAsync(tagDto.ToModel());
         var responseBody = result.ResponseBody;
 
         if (result.IsSuccess && responseBody != null)
@@ -88,7 +87,7 @@ public class TagController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id,[FromBody]TagDTO tagDTO)
     {
-        var result = await _tagService.UpdateAsync(id,tagDTO.ToEntity());
+        var result = await _tagService.UpdateAsync(id,tagDTO.ToModel());
 
         if (result.IsSuccess)
         {

@@ -1,24 +1,35 @@
 ﻿using B3Digitas.Todo.Api.DTOs;
-using B3Digitas.Todo.Domain.Entities;
+using B3Digitas.Todo.Business.Models;
 
 namespace B3Digitas.Todo.Api.Mappers;
 
 public static class TagMapper 
 {
-    public static TagDTO ToDto(this Tag tag)
+    public static TagDTO ToDto(this TagModel tagModel)
     {
         return new TagDTO
         {
-            Color = tag.Color,
-            Description = tag.Description,
-            Name = tag.Name
+            Color = tagModel.Color,
+            Description = tagModel.Description,
+            Name = tagModel.Name
         };
     }
 
-    public static Tag ToEntity(this TagDTO tagDto)
+    public static TagModel ToModel(this TagDTO tagDto)
     {
-        return new Tag
+        return new TagModel
         {
+            Name = tagDto.Name,
+            Description = tagDto.Description,
+            Color = tagDto.Color,
+        };
+    }
+
+    public static TagModel ToModel(this TagDTO tagDto, Guid id)
+    {
+        return new TagModel
+        {
+            Id = id,
             Name = tagDto.Name,
             Description = tagDto.Description,
             Color = tagDto.Color,

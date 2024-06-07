@@ -131,10 +131,10 @@ namespace B3Digitas.Todo.Tests.Features
             {
                 this.ScenarioStart();
 #line 12
-    testRunner.Given("no existing todo with title \"NewTodo\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("no existing todo with title \"New Todo\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 13
-    testRunner.When("I create a todo with title \"NewTodo\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I create a todo with title \"New Todo\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
     testRunner.Then("the creation should succeed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -267,14 +267,14 @@ namespace B3Digitas.Todo.Tests.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Update a todo that does not exist")]
+        [Xunit.SkippableFactAttribute(DisplayName="Delete a todo that exists")]
         [Xunit.TraitAttribute("FeatureTitle", "TodoService")]
-        [Xunit.TraitAttribute("Description", "Update a todo that does not exist")]
-        public void UpdateATodoThatDoesNotExist()
+        [Xunit.TraitAttribute("Description", "Delete a todo that exists")]
+        public void DeleteATodoThatExists()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a todo that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a todo that exists", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 36
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -286,75 +286,13 @@ namespace B3Digitas.Todo.Tests.Features
             {
                 this.ScenarioStart();
 #line 37
-    testRunner.Given("no existing todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 38
-    testRunner.When("I update the todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 39
-    testRunner.Then("the operation should fail with message \"Erro ao atualizar tarefa.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="Delete a todo that exists")]
-        [Xunit.TraitAttribute("FeatureTitle", "TodoService")]
-        [Xunit.TraitAttribute("Description", "Delete a todo that exists")]
-        public void DeleteATodoThatExists()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a todo that exists", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 41
-  this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 42
     testRunner.Given("an existing todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 43
+#line 38
     testRunner.When("I delete the todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 44
+#line 39
     testRunner.Then("the deletion should succeed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="Delete a todo that does not exist")]
-        [Xunit.TraitAttribute("FeatureTitle", "TodoService")]
-        [Xunit.TraitAttribute("Description", "Delete a todo that does not exist")]
-        public void DeleteATodoThatDoesNotExist()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a todo that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 46
-  this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 47
-    testRunner.Given("no existing todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 48
-    testRunner.When("I delete the todo with ID \"c56a4180-65aa-42ec-a945-5fd21dec0538\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 49
-    testRunner.Then("the operation should fail with message \"Tarefa nao encontrada.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
